@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+	</head>
+
+	<body>
+		<div class="mui-content linear">
+			<div class="context yyd-flex yyd-column yyd-align-item-center yyd-padding-10">
+				<div class="yyd-flex yyd-column yyd-align-item-center yyd-justify-content-center yyd-width-100" style="height: 24%;margin-top: 30px;">
+					<!--<img class="logo" src="resource/image/logo.png" />-->
+					<div class="app-title">游友代</div>
+					<div class="app-info-tip yyd-fnt-999999">最优质、公平的游戏代玩平台,躺着也可以赚钱的平台。</div>
+				</div>
+				<!--<h5 style="font-size: x-small;margin-bottom: 0px;">爱车趣，让您的爱车爱上与您一同旅游的乐趣!</h5>-->
+				<div class="yyd-flex yyd-column yyd-width-100">
+					<input class="txt" type="tel" name="account" id="account" value="" placeholder="手机号码" />
+					<input class="txt" type="password" name="password" id="password" value="" placeholder="●●●●●●" />
+					<div class="yyd-flex yyd-row yyd-justify-content-end yyd-align-item-center" style="color: #999999;padding:0px 10px 15px 10px;">
+						<span style="padding: 0px 10px;">自动登录</span>
+						<div class="mui-switch mui-switch-blue">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</div>
+					<button type="button" class="mui-btn mui-btn-blue mui-btn-block login-btn">登录</button>
+				</div>
+				<div class="yyd-flex yyd-row yyd-justify-content-center yyd-padding-10 opt">
+					<a href="#" class="toRegister">我要注册</a>|
+					<a href="#" class="toForgetPassword">忘记密码</a>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/plugin/yyd.plugin.geomap.js"></script>
+	<script type="text/javascript" src="js/plugin/yyd.plugin.window.open.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var fields = {};
+		mui.init();
+		//		plus.storage.setItem('isAutoLogin', 'true');
+		mui.plusReady(function() {
+
+			initLocation();
+
+			fields.LoginAccount = document.querySelector('#account');
+			fields.LoginPassword = document.querySelector('#password');
+			fields.isAutoLoginSwitch = document.querySelector('.mui-switch');
+			fields.LoginBtn = document.querySelector('.login-btn');
+			fields.toRegister = document.querySelector('.toRegister');
+			fields.toForgetPassword = document.querySelector('.toForgetPassword');
+			autoLoginSwitch();
+			bindAutoLogin();
+			doAutoLogin();
+			doLogin();
+			toRegister();
+			toForgetPassword();
+		});
+
+		function toForgetPassword() {
+			fields.toForgetPassword.addEventListener('tap', function() {
+				Open.fnOpen({
+					url: './views/ucenter/password/passwordforget.html',
+					id: 'passwordforget.html'
+				});
+			}, false);
+		}
+
+		//跳转到注册页面
+		function toRegister() {
+			fields.toRegister.addEventListener('tap', function() {
+				Open.fnOpen({
+					url: './views/ucenter/register.html',
+					id: 'register.html'
+				});
+			}, false);
+		}
+
+		//自动登录
+		function doAutoLogin() {
+			if(plus.storage.getItem('isAutoLogin') == 'true') {
+				fields.LoginBtn.disabled = true;
+				fields.LoginBtn.innerText = '登录中...';
+				var userInfo = App.fnGetUser();
+				_fnLogin(userInfo.LoginAccount, userInfo.LoginPassword);
+			}
+		}
+
+		function doLogin() {
+			fields.LoginBtn.addEventListener('tap', function() {
+				fields.LoginBtn.disabled = true;
+				fields.LoginBtn.innerText = '登录中...';
+				_fnLogin(fields.LoginAccount.value, fields.LoginPassword.value);
+			}, false);
+		}
+
+		function autoLoginSwitch() {
+			if(plus.storage.getItem('isAutoLogin') == 'true') {
+				if(!fields.isAutoLoginSwitch.classList.contains('mui-active')) {
+					fields.isAutoLoginSwitch.classList.add('mui-active');
+				}
+			} else {
+				fields.isAutoLoginSwitch.classList.remove('mui-active');
+			}
+		}
+		
+		function bindAutoLogin(){
+			//点击事件
+			fields.isAutoLoginSwitch.addEventListener('toggle', function() {
+				console.info('点击了自动登录按钮');
+				if(!fields.isAutoLoginSwitch.classList.contains('mui-active')) {
+					fields.isAutoLoginSwitch.classList.add('mui-active');
+					plus.storage.setItem('isAutoLogin', 'true');
+					console.info('激活');
+				} else {
+					plus.storage.setItem('isAutoLogin', 'false');
+					console.info('关闭');
+				}
+			}, false);
+
+		}
+
+		function initLocation() {
+			GeoMap.fnGetPosition(function(d) {
+				if(d.code == 'ok') {
+					//{\"coordsType\":\"wgs84\",\"address\":{\"district\":\"赣榆区\",\"country\":\"中国\",\"province\":\"江苏省\",\"city\":\"连云港市\",\"street\":\"赣榆区\"},\"addresses\":\"尚门河村\",\"coords\":{\"latitude\":34.83524422149079,\"longitude\":118.9307813644347,\"accuracy\":165.0000071956857,\"altitude\":15.99999809265137,\"heading\":null,\"speed\":null,\"altitudeAccuracy\":16.3236901498228},\"timestamp\":1502361405335.184}
+					plus.storage.setItem('location', JSON.stringify(d.data));
+				} else {
+					plus.nativeUI.toast('gps定位失败！');
+				}
+			});
+		}
+
+		function _fnLogin(account, password) {
+			App.fnPost({
+				toUrl: '/Customer/Login',
+				params: {
+					LoginAccount: account,
+					LoginPassword: password
+				},
+				callback: function(res) {
+					if(res != null) {
+						var obj = JSON.parse(res);
+						if(obj.ResultType == 3) {
+							obj.Data.LoginPassword = password;
+							plus.storage.setItem('user', JSON.stringify(obj.Data));
+							plus.nativeUI.toast('登录成功！');
+							setTimeout(function() {
+								Open.fnOpen({
+									url: 'main.html',
+									id: 'main.html'
+								});
+							}, 1500);
+						} else {
+							plus.nativeUI.toast(obj.Message);
+						}
+					}
+					fields.LoginBtn.disabled = false;
+				}
+			});
+		}
+	</script>
+
+</html>

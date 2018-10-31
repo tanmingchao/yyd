@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/app.css" />
+		<style>
+			.type-box {
+				/*top: 44px;*/
+				position: absolute;
+				width: 100%;
+				background-color: rgba(0, 0, 0, 0.8);
+				white-space: nowrap;
+				-webkit-backface-visibility: hidden;
+				-webkit-overflow-scrolling: touch;
+				text-align: justify;
+				z-index: 3;
+				&::-webkit-scrollbar {
+					display: none;
+				}
+			}
+			
+			#gameTypeScroll {
+				width: 100%;
+				white-space: nowrap;
+				overflow-y: hidden;
+				overflow-x: scroll;
+			}
+			
+			#gameTypeScroll a {
+				/*height: 40px;*/
+				padding: 2px 10px;
+				text-align: center;
+				line-height: 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!--<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">任务大厅</h1>
+		</header>-->
+
+		<div class="type-box">
+			<div id="gameTypeScroll" class="" style="background: #f6f6f6;">
+				<a class="mui-control-item type-item">大唐无双1</a>
+				<a class="mui-control-item type-item">大唐无双1</a>
+				<a class="mui-control-item type-item">大唐无双1</a>
+				<a class="mui-control-item type-item">大唐无双1</a>
+				<a class="mui-control-item type-item">大唐无双1</a>
+				<a class="mui-control-item type-item">大唐无双1</a>
+				<a class="mui-control-item type-item">大唐无双1</a>
+				<a class="mui-control-item type-item">大唐无双1</a>
+				<a class="mui-control-item type-item">大唐无双1</a>
+			</div>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/app.js"></script>
+		<script type="text/javascript" src="../../js/plugin/yyd.plugin.window.open.js"></script>
+
+		<script type="text/javascript">
+			(function($, doc) {
+				$.init({
+					gestureConfig: {
+						doubletap: true
+					},
+					subpages: [{
+						url: 'index_sub.html',
+						id: 'index_sub.html',
+						styles: {
+							top: '50px',
+							bottom: '0px',
+						}
+					}]
+				});
+				var field = {};
+				var ws = null;
+				$.plusReady(function() {
+					ws = plus.webview.currentWebview();
+					ws.setPullToRefresh({
+						support: false
+					}, null);
+					field.TypeMenuContainer = doc.querySelector('#gameTypeScroll');
+					fnInitTypes();
+				})
+
+				function fnInitTypes() {
+					App.fnGet({
+						toUrl: '/GameType/GetAllType',
+						callback: function(res) {
+							var obj = JSON.parse(res);
+							if(obj.ResultType == 3 && obj.Data && obj.Data.length > 0) {
+								plus.storage.setItem('gameType', JSON.stringify(obj.Data));
+								var typesHtml = '';
+								var active = 'mui-active';
+								obj.Data.forEach(function(item, index, input) {
+									active = index != 0 ? '' : active;
+									var node = document.createElement('a');
+									node.setAttribute('data-key', item.PrimaryKey);
+									node.setAttribute('class', 'mui-control-item type-item ' + active);
+									node.innerText = item.GameName;
+									field.TypeMenuContainer.appendChild(node);
+								});
+							}
+						}
+					});
+					//绑定点击事件
+					mui('#gameTypeScroll').on('tap', 'a.type-item', function() {
+						var type_pkey = this.getAttribute('data-key');
+						fnClear(type_pkey);
+						if(activeMenuKey != type_pkey) {
+							activeMenuKey = type_pkey;
+							fnBindData(function(obj) {
+								totalRows = obj.totalRows;
+								bindHtml(obj.data);
+							});
+						}
+					});
+				}
+			})(mui, document);
+		</script>
+	</body>
+
+</html>

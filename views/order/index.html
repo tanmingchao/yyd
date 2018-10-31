@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/app.css" />
+		<style type="text/css">
+			.mui-segmented-control {
+				border: 0px;
+				background: #f6f6f6;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				background-color: #f3ebe0;
+				color: #007aff;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				border: 0px;
+				color: #999999;
+			}
+			
+			.mui-bar-nav~.mui-content .mui-pull-top-pocket {
+				top: 0px;
+			}
+			
+			.mui-scroll-wrapper {
+				top: 84px;
+			}
+			
+			.yyd-justify-content-start {
+				z-index: 3;
+			}
+			
+			.fnt-14 {
+				font-size: 14px;
+				color: #333333;
+			}
+			
+			.fnt-13 {
+				font-size: 13px;
+				color: #333333;
+			}
+			
+			.status {
+				font-size: 14px;
+			}
+			
+			.wait {
+				color: #0062CC;
+				/*border: 1px solid #0062CC;*/
+				padding: 0px 8px;
+				border-radius: 2px;
+			}
+			
+			.going {
+				color: #EC971F;
+				/*border: 1px solid #0062CC;*/
+				padding: 0px 8px;
+				border-radius: 2px;
+			}
+			
+			.question {
+				color: #DD524D;
+				/*border: 1px solid #DD524D;*/
+				padding: 0px 8px;
+				border-radius: 2px;
+			}
+			
+			.quit {
+				color: #CCCCCC;
+				/*border: 1px solid #CCCCCC;*/
+				padding: 0px 8px;
+				border-radius: 2px;
+			}
+			
+			.finished {
+				color: #2AC845;
+				/*border: 1px solid #2AC845;*/
+				padding: 0px 8px;
+				border-radius: 2px;
+			}
+			
+			.haspay {
+				color: #57d36c;
+			}
+			
+			.baochou {
+				color: #EC971F;
+			}
+			
+			.fnt-16 {
+				font-size: 16px;
+				font-weight: bold;
+			}
+			
+			.yyd-fnt-323232 {
+				color: #323232;
+			}
+			
+			.color-333333 {
+				color: #333333;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="order-content">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-icon mui-pull-left"></a>
+				<h1 class="mui-title">任务订单</h1>
+			</header>
+
+			<div class="mui-content">
+				<!--订单列表-->
+				<div class="order-list">
+					<div class="yyd-flex yyd-column yyd-justify-content-start order-menu">
+						<div class="mui-segmented-control" id="order-status-ctrl">
+							<a data-key="-2" class="mui-control-item mui-active" href="#item1">全部</a>
+							<a data-key="9" class="mui-control-item" href="#item2">待执行</a>
+							<a data-key="0" class="mui-control-item" href="#item2">进行中</a>
+							<!--有争执，后台为被锁定，需要平台调解-->
+							<a data-key="2" class="mui-control-item" href="#item3">有争执</a>
+							<a data-key="3" class="mui-control-item" href="#item4">已放弃</a>
+							<a data-key="1" class="mui-control-item" href="#item5">已完成</a>
+						</div>
+					</div>
+
+					<div id="orderlist" class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<div id="scroll-order-list" class="yyd-flex yyd-column yyd-flex-1">
+
+								<!--<div v-for="order in orderListDto" @tap="fnToDetail($event)" data-key="order.PrimaryKey" class="order-item yyd-flex yyd-flex-1 yyd-column yyd-bg-white yyd-padding-10  yyd-magrin-top-8" style="padding: 10px 10px;">
+									<div class="yyd-flex yyd-column">
+										<div class="yyd-flex yyd-row fnt-14 yyd-justify-content-space-between" style="padding: 6px 10px;">
+											<span><span class="yyd-fnt-323232">订单号</span>【{{order.OrderNo}}】</span>
+											<span class="status" :class="{'wait':order.OrderStatus=='待执行','going':order.OrderStatus=='进行中','question':order.OrderStatus=='被锁定','quit':order.OrderStatus=='已放弃','finished':order.OrderStatus=='已完成'}">
+												{{order.OrderStatus}}  
+											</span>
+										</div>
+										<div class="yyd-flex yyd-flex-1 yyd-row yyd-boder-top-efeff4 fnt-13 yyd-justify-content-space-between" style="padding: 6px 10px 2px 10px;">
+											<span class="yyd-fnt-323232 yyd-flex-1">保证金￥{{order.PayBond}}<span :class="{'haspay':order.PayBond>0,'hasNoPay':(order.PayBond==0||order.PayBond==0.00)}">&nbsp;[{{order.PayBond>0?'已缴纳':'未缴纳'}}]</span></span>
+											<span class="">x{{order.Demand.PlayTimeRange}}小时</span>
+										</div>
+										<div class="yyd-flex yyd-flex-1 yyd-row fnt-13 yyd-justify-content-space-between" style="padding: 2px 10px 2px 10px; ">
+											<span class="yyd-fnt-323232">{{order.CreateTime}}</span>
+											<span class="baochou">
+												报酬：<span class="fnt-16">￥{{order.Demand.ServerFee}}</span><span class="color-333333">({{order.OrderStatus=='已完成'?'已到账':'未到账'}})</span>
+											</span>
+										</div>
+									</div>
+								</div>-->
+
+								<!--以下是四种状态的Html，勿删-->
+								<!--item-->
+								<!--<div @tap="fnToDetail($event)" data-key="订单primaryKey" class="order-item yyd-flex yyd-flex-1 yyd-column yyd-bg-white yyd-padding-8-10  yyd-magrin-top-8" style="padding: 10px 10px;">
+									<div class="yyd-flex yyd-column">
+										<div class="yyd-flex yyd-row fnt-14 yyd-justify-content-space-between" style="padding: 6px 10px;">
+											<span><span class="yyd-fnt-323232">订单号</span>【TSK123213210321030210】</span>
+											<span class="status wait">待执行</span>
+										</div>
+										<div class="yyd-flex yyd-flex-1 yyd-row yyd-boder-top-efeff4 fnt-13 yyd-justify-content-space-between" style="padding: 6px 10px 2px 10px;">
+											<span class="yyd-fnt-323232 yyd-flex-1">保证金￥10<span class="haspay">&nbsp;[已缴纳]</span></span>
+											<span class="">x3小时</span>
+										</div>
+										<div class="yyd-flex yyd-flex-1 yyd-row fnt-13 yyd-justify-content-space-between" style="padding: 2px 10px 2px 10px; ">
+											<span class="yyd-fnt-323232">2017-12-12 12:12</span>
+											<span class="baochou">
+												报酬：<span class="fnt-16">￥12</span><span class="color-333333">(未到账)</span>
+											</span>
+										</div>
+									</div>
+								</div>-->
+								<!--item-->
+								<!--<div @tap="fnToDetail($event)" data-key="订单primaryKey" class="order-item yyd-flex yyd-flex-1 yyd-column yyd-bg-white yyd-padding-8-10 yyd-magrin-top-8" style="padding: 10px 10px;">
+									<div class="yyd-flex yyd-row fnt-14 yyd-justify-content-space-between" style="padding: 6px 10px;">
+										<span><span class="yyd-fnt-323232">订单号</span>【TSK123213210321030210】</span>
+										<span class="status question">有争执</span>
+									</div>
+									<div class="yyd-flex yyd-flex-1 yyd-row yyd-boder-top-efeff4 fnt-13 yyd-justify-content-space-between" style="padding: 6px 10px 2px 10px;">
+										<span class="yyd-fnt-323232 yyd-flex-1">保证金￥10<span class="haspay">&nbsp;[已缴纳]</span></span>
+										<span class="">x3小时</span>
+									</div>
+									<div class="yyd-flex yyd-flex-1 yyd-row fnt-13 yyd-justify-content-space-between" style="padding: 2px 10px 2px 10px;">
+										<span class="yyd-fnt-323232">2017-12-12 12:12</span>
+										<span class="baochou">
+											报酬：<span class="fnt-16">￥12</span><span class="color-333333">(未到账)</span>
+										</span>
+									</div>
+								</div>-->
+								<!--item-->
+								<!--<div @tap="fnToDetail($event)" data-key="订单primaryKey" class="order-item yyd-flex yyd-flex-1 yyd-column yyd-bg-white yyd-padding-8-10 yyd-magrin-top-8" style="padding: 10px 10px;">
+									<div class="yyd-flex yyd-row fnt-14 yyd-justify-content-space-between" style="padding: 6px 10px;">
+										<span><span class="yyd-fnt-323232">订单号</span>【TSK123213210321030210】</span>
+										<span class="status quit">已放弃</span>
+									</div>
+									<div class="yyd-flex yyd-flex-1 yyd-row fnt-13 yyd-boder-top-efeff4 yyd-justify-content-space-between" style="padding: 6px 10px 2px 10px;">
+										<span class="yyd-fnt-323232 yyd-flex-1">保证金￥10<span class="haspay">&nbsp;[已缴纳]</span></span>
+										<span class="">x3小时</span>
+									</div>
+									<div class="yyd-flex yyd-flex-1 yyd-row fnt-13 yyd-justify-content-space-between" style="padding: 2px 10px 2px 10px;">
+										<span class="yyd-fnt-323232">2017-12-12 12:12</span>
+										<span class="baochou">
+											报酬：<span class="fnt-16">￥12</span><span class="color-333333">(未到账)</span>
+										</span>
+									</div>
+								</div>-->
+
+								<!--item-->
+								<!--<div @tap="fnToDetail($event)" data-key="订单primaryKey" class="order-item yyd-flex yyd-flex-1 yyd-column yyd-bg-white yyd-padding-8-10 yyd-magrin-top-8" style="padding: 10px 10px;">
+									<div class="yyd-flex yyd-row fnt-14 yyd-justify-content-space-between" style="padding: 6px 10px;">
+										<span><span class="yyd-fnt-323232">订单号</span>【TSK123213210321030210】</span>
+										<span class="status finished">已完成</span>
+									</div>
+									<div class="yyd-flex yyd-flex-1 yyd-row fnt-13 yyd-boder-top-efeff4 yyd-justify-content-space-between" style="padding: 6px 10px 2px 10px;">
+										<span class="yyd-fnt-323232 yyd-flex-1">保证金￥10<span class="haspay">&nbsp;[已缴纳]</span></span>
+										<span class="">x3小时</span>
+									</div>
+									<div class="yyd-flex yyd-flex-1 yyd-row fnt-13 yyd-justify-content-space-between" style="padding: 2px 10px 2px 10px;">
+										<span class="yyd-fnt-323232">2017-12-12 12:12</span>
+										<span class="baochou"><!--class="color-333333"-->
+								<!--报酬：<span class="fnt-16">￥12</span><span class="haspay">(已到账)</span>
+								</span>
+							</div>
+						</div>-->
+
+							</div>
+						</div>
+					</div>
+					<!--如果全部订单totalRows返回结果为0，则显示此处信息-->
+					<div v-if="totalRows==0" class="no-order-msg yyd-flex yyd-column yyd-align-item-center yyd-bg-white yyd-padding-10 yyd-justify-content-center" style="font-size: 14px;padding: 10px;">
+						<span class="mui-icon mui-icon-info" style="font-size: 48px;color: #F0AD4E;"></span>
+						<span>您没有接受过任何任务，赶快去接任务赚钱吧。</span>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/app.js"></script>
+		<script type="text/javascript" src="../../js/vue.js"></script>
+		<script type="text/javascript" src="../../js/app.js"></script>
+		<script type="text/javascript" src="../../js/plugin/yyd.plugin.window.open.js"></script>
+		<script type="text/javascript" src="index.js"></script>
+	</body>
+
+</html>

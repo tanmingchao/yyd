@@ -1,0 +1,51 @@
+{
+  "views/ucenter/register.html": {
+    "href": "views/ucenter/register.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/app.css",
+      "js/mui.min.js",
+      "js/app.js"
+    ],
+    "priority": 0
+  },
+  "main.html": {
+    "href": "main.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/app.css",
+      "js/mui.min.js",
+      "js/plugin/yyd.plugin.window.open.js"
+    ],
+    "priority": 1
+  },
+  "views/ucenter/password/passwordforget_comfirmchange.html": {
+    "href": "views/ucenter/password/passwordforget_comfirmchange.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/app.css",
+      "js/mui.min.js",
+      "js/app.js"
+    ],
+    "priority": 2
+  },
+  "views/ucenter/password/passwordforget.html": {
+    "href": "views/ucenter/password/passwordforget.html",
+    "resources": [],
+    "refer": [
+      "views/ucenter/password/passwordforget_comfirmchange.html"
+    ],
+    "priority": 2
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "main.html"
+    ],
+    "priority": 0
+  }
+}

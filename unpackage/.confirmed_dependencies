@@ -1,0 +1,122 @@
+{
+	"index.html": {
+		"resources": [
+			"js/plugin/yyd.plugin.window.open.js",
+			"css/index.css",
+			"js/app.js",
+			"js/mui.min.js",
+			"css/app.css",
+			"css/mui.min.css",
+			"js/plugin/yyd.plugin.geomap.js"
+		],
+		"refer": [
+			"views/ucenter/password/passwordforget.html",
+			"views/ucenter/register.html",
+			"main.html"
+		]
+	},
+	"views/ucenter/register.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/app.css",
+			"js/mui.min.js",
+			"js/app.js"
+		],
+		"refer": []
+	},
+	"views/ucenter/password/passwordforget.html": {
+		"resources": [
+			"js/plugin/yyd.plugin.window.open.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"views/ucenter/password/passwordforget_comfirmchange.html"
+		]
+	},
+	"main.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"resource/image/main_tab_fb_x_48.png",
+			"css/mui.min.css",
+			"css/app.css",
+			"js/mui.min.js",
+			"js/plugin/yyd.plugin.window.open.js",
+			"views/index/index.html",
+			"views/gameRecommend/index.html"
+		],
+		"refer": [
+			"views/index/index.html",
+			"views/order/index.html",
+			"views/gameRecommend/index.html",
+			"views/ucenter/index.html"
+		]
+	},
+	"views/ucenter/password/passwordforget_comfirmchange.html": {
+		"href": "views/ucenter/password/passwordforget_comfirmchange.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/app.css",
+			"js/mui.min.js",
+			"js/app.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"views/index/index.html": {
+		"resources": [
+			"views/index/index.js",
+			"js/plugin/yyd.plugin.window.open.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"css/app.css",
+			"css/mui.min.css",
+			"fonts/mui.ttf",
+			"js/mui.pullToRefresh.js",
+			"js/mui.pullToRefresh.material.js",
+			"views/index/index_sub.html"
+		],
+		"refer": [
+			"views/index/index_sub.html"
+		]
+	},
+	"views/order/index.html": {
+		"resources": [
+			"views/order/index.js",
+			"js/plugin/yyd.plugin.window.open.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		]
+	},
+	"views/ucenter/index.html": {
+		"resources": [
+			"views/ucenter/index.js",
+			"css/icons-extra.css",
+			"js/plugin/yyd.plugin.window.open.js",
+			"js/app.js",
+			"resource/image/logo-120-120.png",
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		]
+	},
+	"views/index/index_sub.html": {
+		"resources": [
+			"views/index/index.js",
+			"js/plugin/yyd.plugin.window.open.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"css/app.css",
+			"css/mui.min.css",
+			"fonts/mui.ttf"
+		]
+	}
+}

@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<style type="text/css">
+			.item-add {
+				width: 100%;
+				display: block;
+				position: absolute;
+				z-index: 11;
+				top: 0px;
+			}
+			
+			.img-box {
+				/*background: #BFBFC1;*/
+				border-top: 1px solid #fbfbfb;
+				display: inline-block;
+				border-radius: 50%;
+			}
+			
+			.add-img {
+				height: 100%;
+				width: 30px;
+				border-radius: 50%;
+				padding: 1px 1px 0px 1px;
+			}
+			
+			.mui-bar {
+				backface-visibility: inherit;
+				webkit-box-shadow: 0 0 1px #ababab;
+				box-shadow: 0 0 1px #ababab;
+			}
+			
+			.mui-tab-item-new {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+			}
+			
+			.mui-tab-label-new {
+				font-size: 11px;
+				display: block;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">游友代</h1>
+		</header>
+
+		<nav class="mui-bar mui-bar-tab" style="    background-color: #f7f7f7;">
+			<a class="mui-tab-item mui-active" data-index="0">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" data-index="1">
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-tab-label">游戏|大神</span>
+			</a>
+			<a class="mui-tab-item-new" style="overflow: visible;position: relative;vertical-align: bottom;">
+				<span class="item-add">
+					<div class="img-box">
+						<img src="resource/image/main_tab_fb_x_48.png" class="add-img" />
+					</div>
+				</span>
+				<span class="mui-tab-label-new" style="font-size: 11px;">发布任务</span>
+			</a>
+			<a class="mui-tab-item" data-index="2">
+				<span class="mui-icon mui-icon-settings"></span>
+				<span class="mui-tab-label">订单</span>
+			</a>
+			<a class="mui-tab-item" data-index="3">
+				<span class="mui-icon mui-icon-person"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/plugin/yyd.plugin.window.open.js"></script>
+		<script type="text/javascript">
+			var aniShow = {};
+			mui.init();
+			mui.plusReady(function() {
+
+				//当前窗口对象（父窗口）
+				var self = plus.webview.currentWebview();
+				// 子窗口地址数组
+				var subpages = [
+					"views/index/index.html",
+					"views/gameRecommend/index.html",
+					"views/order/index.html",
+					"views/ucenter/index.html"
+				];
+				// 子窗口样式
+				var subStyles = {
+					top: "0px",
+					bottom: "51px",
+					position: "static"
+				};
+				// 子窗口数量
+				var subLen = subpages.length;
+				// 子窗口对象数组
+				var subWvs = [];
+				// 标题栏
+				var title = document.querySelector(".mui-title");
+				// 底部选项
+				var tabs = document.querySelectorAll(".mui-tab-item");
+				// 底部文字
+				var labels = document.querySelectorAll(".mui-tab-label");
+
+				// 当前页面索引，初始化为0；
+				var activeIndex = 0;
+				// 目标页面索引，初始化为当前页面索引；
+				var targetIndex = activeIndex;
+				// 创建子页面
+				for(var i = 0; i < subLen; i++) {
+					var temp = {};
+					var subWv = plus.webview.create(subpages[i], cutWebviewId(subpages[i]), subStyles, {
+						index: i
+					});
+					// 窗口对象添加至数组
+					subWvs.push(subWv);
+					if(i > 0) {
+						subWv.hide("none");
+					} else {
+						temp[subpages[i]] = "true";
+						mui.extend(aniShow, temp);
+					}
+					self.append(subWv);
+				}
+				// 底部选项卡点击切换事件
+				for(var j = 0, jlen = tabs.length; j < jlen; j++) {
+					tabs[j].addEventListener("tap", function() {
+						// 获取当前结点的索引
+						targetIndex = this.getAttribute("data-index");
+						// 转换为number类型
+						targetIndex = parseInt(targetIndex);
+						if(targetIndex == activeIndex) {
+							return;
+						}
+						// 切换页面
+						switchPage("tap", activeIndex, targetIndex);
+					});
+
+					//跳转到发布页面
+					fnToPbulishDemand();
+
+				}
+				/**
+				 * 切换页面
+				 * @param {String} _event 事件类型
+				 * @param {Number} _active 当前页面索引
+				 * @param {Number} _target 目标页面索引
+				 */
+				function switchPage(_event, _active, _target) {
+					// 之前展示的页面隐藏
+					subWvs[_active].hide("none");
+					subWvs[_target].show("fade-in");
+					if(_target != _active) {
+						tabs[_active].classList.remove("mui-active");
+						tabs[_target].classList.add("mui-active");
+					}
+					// 更新当前页索引
+					activeIndex = _target;
+				}
+			});
+			/**
+			 * 截取url地址，获取窗口的id；
+			 * @param {String} url html文件的路径
+			 * @param {String} wvId webviewObject的id
+			 */
+			function cutWebviewId(url) {
+				var startIndex = url.lastIndexOf("/");
+				var endIndex = url.lastIndexOf(".html");
+				var wvId = url.substring(startIndex + 1, endIndex);
+				return wvId;
+			}
+
+			function fnToPbulishDemand() {
+				document.querySelector('.mui-tab-item-new')
+					.addEventListener('tap', function() {
+						Open.fnOpen({
+							url: 'views/demand/demandpublish/index.html',
+							id: 'publish_index.html',
+							aniShow: 'fade-in'
+						});
+					}, false);
+			}
+		</script>
+	</body>
+
+</html>

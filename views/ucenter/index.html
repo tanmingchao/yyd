@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/app.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/icons-extra.css" />
+		<style type="text/css">
+			.mui-bar-nav {
+				top: 0;
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+			
+			.mui-bar {
+				top: 0px;
+				background: transparent;
+			}
+			
+			.mui-bar-nav~.mui-content {
+				padding-top: 0px;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background: #333333;
+			}
+			
+			.userhead {
+				height: 80px;
+				width: 80px;
+				border-radius: 50%;
+				border: 1px solid #EFEFF4;
+			}
+			
+			.uinfo-box {
+				/*position: relative;*/
+				width: 100%;
+				height: 130px;
+				background: #FFFFFF;
+				margin-top: 120px;
+			}
+			
+			.uoptions-box {
+				/*height: 100%;*/
+				width: 100%;
+				background: #efeff4;
+				position: relative;
+			}
+			
+			.uhead-box {
+				width: 100px;
+				position: relative;
+			}
+			
+			.uhead-item {
+				position: absolute;
+				top: -50px;
+				padding: 10px;
+				align-items: center;
+			}
+			
+			.sign-btn {
+				height: 34px;
+				line-height: 4px;
+				font-size: 12px;
+				margin-bottom: 0px;
+				border-radius: 30px;
+				width: 80%;
+			}
+			
+			.uname {
+				font-size: 16px;
+				color: #333333;
+			}
+			
+			.ulevel {
+				font-size: x-small;
+				border: 1px solid #EFEFF4;
+				padding: 0px 10px;
+				color: #FF5053;
+				margin: 4px 0px;
+				border-radius: 2px;
+			}
+			
+			.score {
+				font-size: 14px;
+				color: #999999;
+			}
+			
+			.opt {
+				font-size: 14px;
+				color: #999999;
+				position: relative;
+			}
+			
+			.opt span.mui-badge {
+				top: 10px;
+				right: 10px;
+				position: absolute;
+			}
+			
+			.item div.opt {
+				border-right: 1px solid #EFEFF4;
+			}
+			
+			.item div.opt:last-child {
+				border-right: none;
+			}
+			
+			.mui-badge-danger,
+			.mui-badge-red {
+				background-color: orangered;
+			}
+			
+			.opt-num {
+				top: 10px;
+				right: 10px;
+				position: absolute;
+				font-size: 14px;
+			}
+			
+			.mui-bar-nav .mui-icon {
+				color: #FFFFFF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="ucenter">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-icon mui-icon-gear mui-pull-left fnSetting"></a>
+				<a class="mui-icon mui-icon-reload mui-pull-right"></a>
+			</header>
+
+			<div class="mui-content">
+				<div class="uinfo-box yyd-flex yyd-column">
+					<div class="yyd-flex yyd-row">
+						<div class="yyd-flex yyd-column yyd-align-item-center">
+							<div class="uhead-box yyd-flex yyd-row" style="height: 80px;">
+								<div class="yyd-flex yyd-column uhead-item">
+									<img src="../../resource/image/logo-120-120.png" class="userhead" /><!--"../../resource/image/logo-320-320.png"-->
+									<span class="ulevel"></span>
+								</div>
+
+							</div>
+						</div>
+						<div class="yyd-flex yyd-flex-1 yyd-column">
+							<span class="uname yyd-flex yyd-padding-8-10"></span>
+							<div class="yyd-flex yyd-row yyd-flex-1 yyd-padding-8-10 yyd-justify-content-space-between">
+								<span class="score score_field"></span>
+								<span class="score yue_field"></span>
+							</div>
+						</div>
+					</div>
+					<div class="yyd-flex yyd-row yyd-padding-10 yyd-align-item-center yyd-justify-content-center" style="border-top:1px solid rgb(224, 224, 224);">
+						<button type="button" class=" sign-btn mui-btn mui-btn-yellow mui-btn-block">签到赚积分</button>
+					</div>
+				</div>
+				<div class="uoptions-box yyd-flex yyd-column yyd-bg-efeff4">
+					<div class="opt yyd-flex yyd-flex-1 yyd-column yyd-bg-white yyd-padding-10  yyd-magrin-top-8" style="padding-bottom: 0px;">
+						<div class="yyd-flex yyd-row yyd-padding-8-10">
+							<span class="yyd-flex yyd-flex-1">我发布的任务(12)</span>
+							<span class="yyd-flex yyd-row">查看全部任务<span class="mui-icon mui-icon-arrowright"></span></span>
+						</div>
+						<div class="item yyd-flex yyd-row yyd-justify-content-start yyd-boder-top-efeff4">
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column">
+								<span class="mui-icon-extra mui-icon-extra-prech num"><span class="mui-badge mui-badge-danger">2</span></span>
+								<span class="opt-title">未上线</span>
+							</div>
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column">
+								<span class="mui-icon-extra mui-icon-extra-grech"><span class="opt-num">2</span></span>
+								<span class="opt-title">待领取</span>
+							</div>
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column">
+								<span class="mui-icon mui-icon-close"><span class="opt-num">2</span></span>
+								<span class="opt-title">已取消</span>
+							</div>
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column">
+								<span class="mui-icon-extra mui-icon-extra-lamp"><span class="opt-num">21</span></span>
+								<span class="opt-title">已完成</span>
+							</div>
+						</div>
+					</div>
+
+					<!--<div class="opt yyd-flex yyd-flex-1 yyd-column yyd-bg-white yyd-padding-10" style="margin-top: 1px;padding-bottom: 0px;">
+						<div class="yyd-flex yyd-row yyd-padding-8-10">
+							<span class="yyd-flex yyd-flex-1">我领取的任务(12)</span>
+							<span class="yyd-flex yyd-row">查看全部订单<span class="mui-icon mui-icon-arrowright"></span></span>
+						</div>
+						<div class="item yyd-flex yyd-row yyd-justify-content-start yyd-boder-top-efeff4">
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column">
+								<span class="mui-icon-extra mui-icon-navigate num"><span class="mui-badge mui-badge-danger">2</span></span>
+								<span class="opt-title">待执行</span>
+							</div>
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column">
+								<span class="mui-icon mui-icon-help"><span class="opt-num">2</span></span>
+								<span class="opt-title">有争执</span>
+							</div>
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column">
+								<span class="mui-icon mui-icon-info"><span class="opt-num">2</span></span>
+								<span class="opt-title">已失败</span>
+							</div>
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column">
+								<span class="mui-icon-extra mui-icon-extra-lamp"><span class="opt-num"></span></span>
+								<span class="opt-title">已完成</span>
+							</div>
+						</div>
+					</div>-->
+
+					<div class="opt yyd-flex yyd-flex-1 yyd-column yyd-bg-white yyd-padding-10 yyd-magrin-top-8">
+						<div class="yyd-flex yyd-row yyd-padding-8-10">
+							<span class="yyd-flex yyd-flex-1">必备工具</span>
+						</div>
+						<div class="yyd-flex yyd-row yyd-justify-content-start yyd-boder-top-efeff4">
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column" style="color: darkviolet;">
+								<span class="mui-icon-extra mui-icon-extra-gold num"></span>
+								<span class="opt-title">账户充值</span>
+							</div>
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column" style="color: goldenrod;">
+								<span class="mui-icon-extra mui-icon-extra-card"></span>
+								<span class="opt-title">申请提现</span>
+							</div>
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column" style="color: crimson;">
+								<span class="mui-icon mui-icon-flag"></span>
+								<span class="opt-title">积分兑换</span>
+							</div>
+							<div class="opt yyd-flex yyd-flex-1 yyd-padding-10 yyd-align-item-center yyd-justify-content-center yyd-column">
+								<span class="mui-icon-extra mui-icon-extra-lamp"><span class="opt-num"></span></span>
+								<span class="opt-title">已完成</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="opt yyd-flex yyd-flex-1 yyd-column yyd-bg-white yyd-padding-10 yyd-magrin-top-8">
+						<div class="yyd-flex yyd-column yyd-padding-8-10 yyd-align-item-center yyd-justify-content-center">
+							<!--<div class="yyd-flex yyd-flex-1 yyd-align-item-center yyd-justify-content-center" style="text-align: center;">技术支持 - 谭明超</div>-->
+							<div class="yyd-flex yyd-flex-1 yyd-align-item-center yyd-justify-content-center" style="text-align: center;">游友代</div>
+							<div class="yyd-flex yyd-flex-1 yyd-align-item-center yyd-justify-content-center" style="text-align: center;">(c) Copyright 2017 南京车趣. All Rights Reserved. </div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/app.js"></script>
+		<script type="text/javascript" src="../../js/vue.js"></script>
+		<script type="text/javascript" src="../../js/plugin/yyd.plugin.window.open.js"></script>
+		<script type="text/javascript" src="index.js"></script>
+	</body>
+
+</html>
